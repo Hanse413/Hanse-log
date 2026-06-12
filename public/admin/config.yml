@@ -3,7 +3,7 @@ backend:
   repo: Hanse413/Hanse-log
   branch: main
   # Replace this with your auth Worker URL from Step 2 (no trailing slash):
-  base_url: https://REPLACE-ME.workers.dev
+  base_url: https://sveltia-cms-auth.hanse413.workers.dev
 
 media_folder: public/images
 public_folder: /images
