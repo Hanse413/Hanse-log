@@ -1,10 +1,8 @@
 ---
-title: ""
-date: 2026-01-01
-tags: []
+title: Testing
+date: 2026-06-12
+tags:
+  - '#tags'
 ---
 
-<!--
-Copy this file to YYYY-MM-DD.md, fill in the frontmatter, write.
-Files starting with "_" are never published.
--->
+Did some jiujitsu in the morning. refined ankle lock skills
