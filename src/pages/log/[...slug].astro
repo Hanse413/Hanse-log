@@ -1,0 +1,34 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('log');
+  const asc = [...entries].sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+  return asc.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: { entry, dayNo: i + 1 },
+  }));
+}
+
+const { entry, dayNo } = Astro.props;
+const { Content } = await render(entry);
+const fmt = entry.data.date.toISOString().slice(0, 10);
+---
+
+<Base title={entry.data.title}>
+  <header class="entry-header">
+    <span class="stamp">
+      <span class="day">DAY {String(dayNo).padStart(3, '0')}</span>
+      {fmt}
+    </span>
+    <h1>{entry.data.title}</h1>
+    {entry.data.tags.length > 0 && (
+      <p class="tags">{entry.data.tags.map((t) => `#${t}`).join('  ')}</p>
+    )}
+  </header>
+  <div class="prose">
+    <Content />
+  </div>
+  <a class="backlink" href="/">← back to the log</a>
+</Base>

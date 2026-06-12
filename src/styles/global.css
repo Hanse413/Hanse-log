@@ -1,0 +1,256 @@
+/* ---------------------------------------------------------------
+   hanse.log — design tokens
+   Concept: an engineer's ruled logbook. Drafting-paper ground,
+   a single red margin rule, dates stamped in the margin in mono.
+   ---------------------------------------------------------------- */
+
+:root {
+  /* color */
+  --paper: #f1f2ee;        /* cool drafting paper, not cream */
+  --paper-deep: #e7e9e3;   /* code blocks, wells */
+  --ink: #1d2126;          /* near-black ink */
+  --ink-soft: #595f67;     /* secondary text */
+  --margin-red: #b03a2c;   /* the notebook margin rule */
+  --blueprint: #2b4fa0;    /* links, interaction */
+  --rule: #cdd0c8;         /* hairlines */
+
+  /* type */
+  --font-display: 'Zilla Slab', 'Apple SD Gothic Neo', serif;
+  --font-body: 'Source Serif 4', 'Apple SD Gothic Neo', 'Noto Serif KR', serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  /* layout */
+  --measure: 66ch;
+  --gutter: 9.5rem;        /* width of the stamped margin column */
+}
+
+* { box-sizing: border-box; }
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-text-size-adjust: 100%;
+}
+
+body { margin: 0; }
+
+a {
+  color: var(--blueprint);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+a:hover { color: var(--margin-red); }
+
+:focus-visible {
+  outline: 2px solid var(--blueprint);
+  outline-offset: 3px;
+}
+
+/* ----- page frame: the ruled logbook sheet ----- */
+
+.sheet {
+  max-width: calc(var(--measure) + var(--gutter) + 4rem);
+  margin: 0 auto;
+  padding: 0 1.25rem 6rem;
+}
+
+/* the signature: one continuous red margin rule */
+.ruled {
+  position: relative;
+  padding-left: var(--gutter);
+}
+.ruled::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--gutter) - 1.6rem);
+  width: 1.5px;
+  background: var(--margin-red);
+  opacity: 0.85;
+}
+
+/* anything stamped into the left margin */
+.stamp {
+  position: absolute;
+  left: calc(-1 * var(--gutter));
+  width: calc(var(--gutter) - 2.7rem);
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  padding-top: 0.35rem;
+}
+.stamp .day {
+  display: block;
+  color: var(--margin-red);
+  font-weight: 600;
+}
+
+/* ----- masthead ----- */
+
+.masthead {
+  padding-top: 3.5rem;
+  padding-bottom: 2.75rem;
+}
+.masthead h1 {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+.masthead h1 a {
+  color: var(--ink);
+  text-decoration: none;
+}
+.masthead h1 .cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.05em;
+  background: var(--margin-red);
+  vertical-align: text-bottom;
+  margin-left: 2px;
+  animation: blink 1.2s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .masthead h1 .cursor { animation: none; }
+}
+.masthead p {
+  margin: 0.4rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+/* ----- index: the entry ledger ----- */
+
+.month-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.4rem;
+  margin: 2.75rem 0 0.5rem;
+}
+
+.entry-row {
+  position: relative;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.entry-row h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.22rem;
+  line-height: 1.35;
+  margin: 0;
+}
+.entry-row h2 a {
+  color: var(--ink);
+  text-decoration: none;
+}
+.entry-row h2 a:hover { color: var(--blueprint); }
+.entry-row .tags {
+  margin-top: 0.2rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+}
+
+/* ----- single entry ----- */
+
+.entry-header { position: relative; margin: 1rem 0 2rem; }
+.entry-header h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.7rem, 4vw, 2.3rem);
+  line-height: 1.25;
+  margin: 0;
+}
+.entry-header .tags {
+  margin-top: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+}
+
+.prose { max-width: var(--measure); }
+.prose h2, .prose h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 2.2em 0 0.6em;
+}
+.prose h2 { font-size: 1.35rem; }
+.prose h3 { font-size: 1.1rem; }
+.prose p { margin: 0 0 1.1em; }
+.prose ul, .prose ol { padding-left: 1.4em; margin: 0 0 1.1em; }
+.prose li { margin: 0.3em 0; }
+.prose blockquote {
+  margin: 1.4em 0;
+  padding: 0.1em 0 0.1em 1.1em;
+  border-left: 2px solid var(--margin-red);
+  color: var(--ink-soft);
+}
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--paper-deep);
+  padding: 0.12em 0.35em;
+  border-radius: 3px;
+}
+.prose pre {
+  background: var(--paper-deep);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 1rem 1.1rem;
+  overflow-x: auto;
+  line-height: 1.55;
+}
+.prose pre code { background: none; padding: 0; font-size: 0.82rem; }
+.prose img { max-width: 100%; height: auto; }
+.prose hr {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: 2.5em 0;
+}
+
+.backlink {
+  display: inline-block;
+  margin-top: 3rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+/* ----- footer ----- */
+
+footer.colophon {
+  margin-top: 5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+}
+
+/* ----- mobile: margin collapses, stamps move inline ----- */
+
+@media (max-width: 640px) {
+  :root { --gutter: 1.4rem; }
+  .stamp {
+    position: static;
+    width: auto;
+    text-align: left;
+    padding: 0 0 0.15rem;
+  }
+  .stamp .day { display: inline; margin-right: 0.6em; }
+}

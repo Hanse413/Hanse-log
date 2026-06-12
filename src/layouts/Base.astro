@@ -1,0 +1,41 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = 'Daily log of Hanse — engineering, training, and everything in between.' } = Astro.props;
+const pageTitle = title ? `${title} · hanse.log` : 'hanse.log';
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Zilla+Slab:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="sheet">
+      <header class="masthead ruled">
+        <h1><a href="/">hanse.log<span class="cursor" aria-hidden="true"></span></a></h1>
+        <p>One entry a day. Engineering, training, and everything in between.</p>
+      </header>
+      <main class="ruled">
+        <slot />
+      </main>
+      <footer class="colophon ruled">
+        © {new Date().getFullYear()} Hanse · built with Astro
+      </footer>
+    </div>
+  </body>
+</html>
