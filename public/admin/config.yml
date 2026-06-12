@@ -1,0 +1,34 @@
+backend:
+  name: github
+  repo: Hanse413/Hanse-log
+  branch: main
+  # Replace this with your auth Worker URL from Step 2 (no trailing slash):
+  base_url: https://REPLACE-ME.workers.dev
+
+media_folder: public/images
+public_folder: /images
+
+collections:
+  - name: log
+    label: Daily Log
+    folder: src/content/log
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{fields.date}}"
+    summary: "{{date}} — {{title}}"
+    sortable_fields: [date]
+    fields:
+      - { name: title, label: Title, widget: string }
+      - name: date
+        label: Date
+        widget: datetime
+        format: "YYYY-MM-DD"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+      - name: tags
+        label: Tags
+        widget: list
+        required: false
+        default: []
+      - { name: body, label: Entry, widget: markdown }
